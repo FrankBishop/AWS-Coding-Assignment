@@ -1,25 +1,18 @@
 exports.handler = async (event, context, callback) => {
-  //declare array of vanity numbers
   let vanityNumbers = [];
-
-  //pull number from event and set it to a variable
-  // let number = event;
-  //covert number to string
-
-  let number = '555-123-4567'
-
-
-
-  //set max number to 0
-  const max = 0
-  //have a while loop that increases max at the end and runs until max is 25
+  let number = '555-123-4567';
+  let max = 0;
   while (max < 25) {
     let vanityNum = '';
     for (let i = 0; i < number.length; i++) {
-      // if (number[i] !== '-') {
-      //   vanityNum += "a";
-      // }
-      switch(number[i]) {
+      if (number[i] === '-') {
+        vanityNum += '-';
+      }
+
+      switch (number[i]) {
+        case "1":
+          vanityNum += '1';
+          break;
         case "2":
           vanityNum += 'a';
           break;
@@ -27,25 +20,83 @@ exports.handler = async (event, context, callback) => {
           vanityNum += 'd';
           break;
         case "4":
-          vanityNum +='g';
+          vanityNum += 'g';
           break;
         case "5":
-          vanityNum +='j';
+          vanityNum += 'j';
           break;
         case "6":
-          vanityNum +='m';
+          vanityNum += 'm';
+          break;
         case "7":
-          vanityNum +='p';
+          vanityNum += 'p';
+          break;
         case "8":
-          vanityNum +='q';
+          vanityNum += 'q';
+          break;
         case "9":
-          vanityNum +='x';
+          vanityNum += 'x';
+          break;
+        case "-":
+          vanityNum += '-';
+          break;
       }
     }
-    vanityNumbers.push(vanityNum)
-    max++
+    vanityNumbers.push(vanityNum);
+    max++;
   }
   return vanityNumbers;
+};
+
+
+// exports.handler = async (event, context, callback) => {
+//   //declare array of vanity numbers
+//   let vanityNumbers = [];
+
+//   //pull number from event and set it to a variable
+//   // let number = event;
+//   //covert number to string
+
+//   let number = '555-123-4567'
+
+
+
+//   //set max number to 0
+//   let max = 0
+//   //have a while loop that increases max at the end and runs until max is 25
+//   while (max < 25) {
+//     let vanityNum = '';
+//     for (let i = 0; i < number.length; i++) {
+//       // if (number[i] !== '-') {
+//       //   vanityNum += "a";
+//       // }
+//       switch(number[i]) {
+//         case "2":
+//           vanityNum += 'a';
+//           break;
+//         case "3":
+//           vanityNum += 'd';
+//           break;
+//         case "4":
+//           vanityNum +='g';
+//           break;
+//         case "5":
+//           vanityNum +='j';
+//           break;
+//         case "6":
+//           vanityNum +='m';
+//         case "7":
+//           vanityNum +='p';
+//         case "8":
+//           vanityNum +='q';
+//         case "9":
+//           vanityNum +='x';
+//       }
+//     }
+//     vanityNumbers.push(vanityNum)
+//     max++
+//   }
+//   return vanityNumbers;
   //loop through string and have a switch statement that based on what number it is, it randomly picks one letter for each number
   //loop returns vanity number
   //outer while loop pushes vanity number into an array of vanity numbers
@@ -67,4 +118,4 @@ exports.handler = async (event, context, callback) => {
   // console.log('this test works2');
   // return test3;
   //end test
-};
+// };
