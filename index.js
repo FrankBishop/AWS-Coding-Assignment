@@ -4,6 +4,8 @@ exports.handler = async (event, context, callback) => {
   let max = 0;
   while (max < 25) {
     let vanityNum = '';
+    let letters = [];
+    let letter;
     for (let i = 0; i < number.length; i++) {
       if (number[i] === '-') {
         vanityNum += '-';
@@ -14,29 +16,47 @@ exports.handler = async (event, context, callback) => {
           vanityNum += '1';
           break;
         case "2":
-          vanityNum += 'a';
+          letters = ['A', 'B', 'C'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
         case "3":
-          vanityNum += 'd';
+          letters = ['D', 'E', 'F'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
         case "4":
-          vanityNum += 'g';
+          letters = ['G', 'H', 'I'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
         case "5":
-          vanityNum += 'j';
+          letters = ['J', 'K', 'L'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
         case "6":
-          vanityNum += 'm';
+          letters = ['M', 'N', 'O'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
         case "7":
-          vanityNum += 'p';
+          letters = ['P', 'Q', 'R', 'S'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
         case "8":
-          vanityNum += 'q';
+          letters = ['T', 'U', 'V'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
         case "9":
-          vanityNum += 'x';
+          letters = ['W', 'X', 'Y', 'Z'];
+          letter = letters[Math.floor(Math.random() * letters.length)];
+          vanityNum += letter;
           break;
+        case "0":
+          vanityNum += '0'
         case "-":
           vanityNum += '-';
           break;
