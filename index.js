@@ -16,8 +16,30 @@ exports.handler = async (event, context, callback) => {
   while (max < 25) {
     let vanityNum = '';
     for (let i = 0; i < number.length; i++) {
-      if (number[i] !== '-') {
-        vanityNum += "a";
+      // if (number[i] !== '-') {
+      //   vanityNum += "a";
+      // }
+      switch(number[i]) {
+        case "2":
+          vanityNum += 'a';
+          break;
+        case "3":
+          vanityNum += 'd';
+          break;
+        case "4":
+          vanityNum +='g';
+          break;
+        case "5":
+          vanityNum +='j';
+          break;
+        case "6":
+          vanityNum +='m';
+        case "7":
+          vanityNum +='p';
+        case "8":
+          vanityNum +='q';
+        case "9":
+          vanityNum +='x';
       }
     }
     vanityNumbers.push(vanityNum)
