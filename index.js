@@ -60,39 +60,64 @@ exports.handler = async (event, context, callback) => {
       }
     }
     vanityNumbers.push(vanityNum);
-    console.log('max', max)
     max++;
   }
   let bestVanity = [];
-  let top5 = [0, 0, 0, 0, 0];
-  console.log('numbers', vanityNumbers)
+  let top5 = [
+    {
+      vanity: '',
+      vowels: 0
+    },
+    {
+      vanity: '',
+      vowels: 0
+    },
+    {
+      vanity: '',
+      vowels: 0
+    },
+    {
+      vanity: '',
+      vowels: 0
+    },
+    {
+      vanity: '',
+      vowels: 0
+    }
+  ];
+
   for (let i = 0; i < vanityNumbers.length; i++) {
+
     let bestNum = vanityNumbers[i];
     let vowels = 0;
-    //using vowel count since vowels mean it is more likely to make a real word
     for (let j = 0; j < bestNum.length; j++) {
-      console.log('van', bestNum[j])
       if (bestNum[j] === 'A' || bestNum[j] === 'E' || bestNum[j] === 'I' || bestNum[j] === 'O' || bestNum[j] === 'U') {
         vowels++
       }
     }
-    //maybe search for vowels, most vowels get put in there
-    //push out old numbers once new one is found that is better
-    //set number of minimum vowels and keep raising that as more are found
-    //once bestVanity reaches 5, splice one with lowest number of vowels
+
+    let bestVan = {
+      vanity: bestNum,
+      vowels: vowels
+    }
+
     for (let j = 0; j < top5.length; j++) {
-      if (vowels > top5[j]) {
-        top5.splice(j, 1, vowels);
-        bestVanity.push(bestNum);
+      if (vowels > top5[j].vowels) {
+        top5.splice(j,1, bestVan);
         break;
       }
     }
-    console.log(vowels)
-    //needs to stop pushing at 5
   }
-  console.log(top5)
+
+  for (let j = 0; j < top5.length; j++) {
+    bestVanity.push(top5[j].vanity)
+  }
+
+
   return bestVanity;
 };
+
+//using vowel count since vowels mean it is more likely to make a real word
 
 
 //use regex to pick best vanity numbers and return those
