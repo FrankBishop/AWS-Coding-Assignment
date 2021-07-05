@@ -7,9 +7,6 @@ exports.handler = async (event, context, callback) => {
     let letters = [];
     let letter;
     for (let i = 0; i < number.length; i++) {
-      if (number[i] === '-') {
-        vanityNum += '-';
-      }
 
       switch (number[i]) {
         case "1":
@@ -63,10 +60,51 @@ exports.handler = async (event, context, callback) => {
       }
     }
     vanityNumbers.push(vanityNum);
+    console.log('max', max)
     max++;
   }
-  return vanityNumbers;
+  let bestVanity = [];
+  let top5 = [0, 0, 0, 0, 0];
+  console.log('numbers', vanityNumbers)
+  for (let i = 0; i < vanityNumbers.length; i++) {
+    let bestNum = vanityNumbers[i];
+    let vowels = 0;
+    //using vowel count since vowels mean it is more likely to make a real word
+    for (let j = 0; j < bestNum.length; j++) {
+      console.log('van', bestNum[j])
+      if (bestNum[j] === 'A' || bestNum[j] === 'E' || bestNum[j] === 'I' || bestNum[j] === 'O' || bestNum[j] === 'U') {
+        vowels++
+      }
+    }
+    //maybe search for vowels, most vowels get put in there
+    //push out old numbers once new one is found that is better
+    //set number of minimum vowels and keep raising that as more are found
+    //once bestVanity reaches 5, splice one with lowest number of vowels
+    for (let j = 0; j < top5.length; j++) {
+      if (vowels > top5[j]) {
+        top5.splice(j, 1, vowels);
+        bestVanity.push(bestNum);
+        break;
+      }
+    }
+    console.log(vowels)
+    //needs to stop pushing at 5
+  }
+  console.log(top5)
+  return bestVanity;
 };
+
+
+//use regex to pick best vanity numbers and return those
+//loop through vanityNumbers array and use regex to determing the best
+//maybe least unique characters since it would be easier to remember
+//once five have been pushed into the best array, return it
+
+//send to DynamoDB
+
+//for ways to do this better with more time, maybe have regex look for certain phrases or characters
+//maybe set i=4
+
 
 
 // exports.handler = async (event, context, callback) => {
