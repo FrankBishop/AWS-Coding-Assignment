@@ -1,4 +1,23 @@
+const AWS = require('aws-sdk');
+const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-2' });
+
 exports.handler = async (event, context, callback) => {
+
+  await vanityNumbers().then(() => {
+    callback(null, {
+      statusCode: 201,
+      body: '',
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+  }).catch((err) => {
+    console.error(err);
+  })
+
+};
+
+function vanityNumbers() {
   let vanityNumbers = [];
   let number = '555-123-4567';
   let max = 0;
@@ -103,7 +122,7 @@ exports.handler = async (event, context, callback) => {
 
     for (let j = 0; j < top5.length; j++) {
       if (vowels > top5[j].vowels) {
-        top5.splice(j,1, bestVan);
+        top5.splice(j, 1, bestVan);
         break;
       }
     }
@@ -113,9 +132,20 @@ exports.handler = async (event, context, callback) => {
     bestVanity.push(top5[j].vanity)
   }
 
+  const params = {
+    TableName: 'topVanityNumbers',
+    Item: {
+      'number': number,
+      'numbers': bestVanity[0],
+      'vnumber2': bestVanity[1],
+      'vnumber3': bestVanity[2],
+      'vnumber4': bestVanity[3],
+      'vnumber5': bestVanity[4],
+    }
+  }
 
-  return bestVanity;
-};
+  return dbb.put(params).promise();
+}
 
 //using vowel count since vowels mean it is more likely to make a real word
 
