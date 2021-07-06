@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-2' });
+const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-west-2' });
 
 exports.handler = async (event, context, callback) => {
 
@@ -10,10 +10,10 @@ exports.handler = async (event, context, callback) => {
       headers: {
         'Access-Control-Allow-Origin': '*'
       }
-    })
+    });
   }).catch((err) => {
     console.error(err);
-  })
+  });
 
 };
 
@@ -72,7 +72,7 @@ function vanityNumbers() {
           vanityNum += letter;
           break;
         case "0":
-          vanityNum += '0'
+          vanityNum += '0';
         case "-":
           vanityNum += '-';
           break;
@@ -111,14 +111,14 @@ function vanityNumbers() {
     let vowels = 0;
     for (let j = 0; j < bestNum.length; j++) {
       if (bestNum[j] === 'A' || bestNum[j] === 'E' || bestNum[j] === 'I' || bestNum[j] === 'O' || bestNum[j] === 'U') {
-        vowels++
+        vowels++;
       }
     }
 
     let bestVan = {
       vanity: bestNum,
       vowels: vowels
-    }
+    };
 
     for (let j = 0; j < top5.length; j++) {
       if (vowels > top5[j].vowels) {
@@ -129,20 +129,20 @@ function vanityNumbers() {
   }
 
   for (let j = 0; j < top5.length; j++) {
-    bestVanity.push(top5[j].vanity)
+    bestVanity.push(top5[j].vanity);
   }
 
   const params = {
     TableName: 'topVanityNumbers',
     Item: {
       'number': number,
-      'numbers': bestVanity[0],
+      'vnumber1': bestVanity[0],
       'vnumber2': bestVanity[1],
       'vnumber3': bestVanity[2],
       'vnumber4': bestVanity[3],
       'vnumber5': bestVanity[4],
     }
-  }
+  };
 
   return dbb.put(params).promise();
 }
