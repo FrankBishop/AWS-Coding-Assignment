@@ -1,27 +1,33 @@
 const AWS = require('aws-sdk');
-const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-east-2' });
+const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-west-2' });
 
-exports.handler = async (event, context, callback) => {
+exports.handler = async (event, context) => {
 
-  await getVanityNumbers().then(() => {
-    callback(null, {
-      statusCode: 201,
-      body: '',
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    })
+  await getVanityNumbers().then((result) => {
+    console.log(JSON.stringify(result))
   }).catch((err) => {
     console.error(err);
   })
 
 };
 
-function getVanityNumbers() {
-  let number = '555-123-4567';
-  const params = {
-    TableName: 'topVanityNumbers',
-    KeyConditionExpression: "number = number",
+getVanityNumbers();
+
+async function getVanityNumbers() {
+  // let pnumber = '+5127669831';
+  try {
+    const params = {
+      KeyConditionExpression: 'pnumber = :pnumber',
+      ExpressionAttributeValues: {
+        ':pnumber': '+15127669831'
+      },
+      TableName: 'vanityNums',
+    };
+    const result = await dbb.query(params).promise();
+    console.log(JSON.stringify(result))
+    return result;
+  } catch (error) {
+    console.error(error)
   }
-  return dbb.scan(params).promise();
 }
+
