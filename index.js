@@ -6,11 +6,7 @@ exports.handler = async (event, context, callback) => {
 
   await vanityNumbers(callerNumber).then(() => {
     callback(null, {
-      statusCode: 201,
-      body: '',
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
+      message: 'We found the best three numbers for you',
     });
   }).catch((err) => {
     console.error(err);
