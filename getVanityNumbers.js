@@ -3,7 +3,9 @@ const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-west-2' });
 
 exports.handler = async (event, context, callback) => {
 
-  await getVanityNumbers().then((result) => {
+  const callerNumber = event['Details']['ContactData']['CustomerEndpoint']['Address'];
+
+  await getVanityNumbers(callerNumber).then((result) => {
     callback(null, {
       vnumber1: result["Items"][0]["vnumber1"],
       vnumber2: result["Items"][0]["vnumber2"],
@@ -15,12 +17,13 @@ exports.handler = async (event, context, callback) => {
 
 };
 
-async function getVanityNumbers() {
+async function getVanityNumbers(call) {
+  const pnumber = call;
   try {
     const params = {
       KeyConditionExpression: 'pnumber = :pnumber',
       ExpressionAttributeValues: {
-        ':pnumber': '+15127669831'
+        ':pnumber': pnumber
       },
       TableName: 'vanityNums',
     };
