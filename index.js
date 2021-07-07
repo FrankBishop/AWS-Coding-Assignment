@@ -2,8 +2,9 @@ const AWS = require('aws-sdk');
 const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-west-2' });
 
 exports.handler = async (event, context, callback) => {
+  const callerNumber = event['Details']['ContactData']['CustomerEndpoint']['Address'];
 
-  await vanityNumbers().then(() => {
+  await vanityNumbers(callerNumber).then(() => {
     callback(null, {
       statusCode: 201,
       body: '',
@@ -17,9 +18,9 @@ exports.handler = async (event, context, callback) => {
 
 };
 
-function vanityNumbers() {
+function vanityNumbers(call) {
+  const number = call;
   let vanityNumbers = [];
-  let number = '555-123-4567';
   let max = 0;
   while (max < 25) {
     let vanityNum = '';
