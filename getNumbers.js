@@ -1,10 +1,13 @@
 const AWS = require('aws-sdk');
 const dbb = new AWS.DynamoDB.DocumentClient({ region: 'us-west-2' });
 
-exports.handler = async (event, context) => {
+exports.handler = async (event, context, callback) => {
 
   await getVanityNumbers().then((result) => {
-    console.log(JSON.stringify(result))
+    // console.log(JSON.stringify(result))
+    callback(null, {
+      vnumber1: result["Items"]
+    });
   }).catch((err) => {
     console.error(err);
   })
@@ -24,10 +27,10 @@ async function getVanityNumbers() {
       TableName: 'vanityNums',
     };
     const result = await dbb.query(params).promise();
-    console.log(JSON.stringify(result))
+    // console.log(JSON.stringify(result))
     return result;
-  } catch (error) {
-    console.error(error)
+  } catch (err) {
+    console.error(err);
   }
 }
 
