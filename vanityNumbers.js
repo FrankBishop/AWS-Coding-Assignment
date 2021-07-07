@@ -27,51 +27,62 @@ function vanityNumbers(call) {
       switch (number[i]) {
         case "1":
           vanityNum += '1';
+          vanityNum += ' ';
           break;
         case "2":
           letters = ['A', 'B', 'C'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "3":
           letters = ['D', 'E', 'F'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "4":
           letters = ['G', 'H', 'I'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "5":
           letters = ['J', 'K', 'L'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "6":
           letters = ['M', 'N', 'O'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "7":
           letters = ['P', 'Q', 'R', 'S'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "8":
           letters = ['T', 'U', 'V'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "9":
           letters = ['W', 'X', 'Y', 'Z'];
           letter = letters[Math.floor(Math.random() * letters.length)];
           vanityNum += letter;
+          vanityNum += ' ';
           break;
         case "0":
           vanityNum += '0';
+          vanityNum += ' ';
         case "-":
           vanityNum += '-';
+          vanityNum += ' ';
           break;
       }
     }
@@ -130,9 +141,9 @@ function vanityNumbers(call) {
   }
 
   const params = {
-    TableName: 'topVanityNumbers',
+    TableName: 'vanityNums',
     Item: {
-      'number': number,
+      'pnumber': number,
       'vnumber1': bestVanity[0],
       'vnumber2': bestVanity[1],
       'vnumber3': bestVanity[2],
@@ -143,89 +154,3 @@ function vanityNumbers(call) {
 
   return dbb.put(params).promise();
 }
-
-//using vowel count since vowels mean it is more likely to make a real word
-
-
-//use regex to pick best vanity numbers and return those
-//loop through vanityNumbers array and use regex to determing the best
-//maybe least unique characters since it would be easier to remember
-//once five have been pushed into the best array, return it
-
-//send to DynamoDB
-
-//for ways to do this better with more time, maybe have regex look for certain phrases or characters
-//maybe set i=4
-
-
-
-// exports.handler = async (event, context, callback) => {
-//   //declare array of vanity numbers
-//   let vanityNumbers = [];
-
-//   //pull number from event and set it to a variable
-//   // let number = event;
-//   //covert number to string
-
-//   let number = '555-123-4567'
-
-
-
-//   //set max number to 0
-//   let max = 0
-//   //have a while loop that increases max at the end and runs until max is 25
-//   while (max < 25) {
-//     let vanityNum = '';
-//     for (let i = 0; i < number.length; i++) {
-//       // if (number[i] !== '-') {
-//       //   vanityNum += "a";
-//       // }
-//       switch(number[i]) {
-//         case "2":
-//           vanityNum += 'a';
-//           break;
-//         case "3":
-//           vanityNum += 'd';
-//           break;
-//         case "4":
-//           vanityNum +='g';
-//           break;
-//         case "5":
-//           vanityNum +='j';
-//           break;
-//         case "6":
-//           vanityNum +='m';
-//         case "7":
-//           vanityNum +='p';
-//         case "8":
-//           vanityNum +='q';
-//         case "9":
-//           vanityNum +='x';
-//       }
-//     }
-//     vanityNumbers.push(vanityNum)
-//     max++
-//   }
-//   return vanityNumbers;
-  //loop through string and have a switch statement that based on what number it is, it randomly picks one letter for each number
-  //loop returns vanity number
-  //outer while loop pushes vanity number into an array of vanity numbers
-  //function returns vanity numbers array
-
-
-  //test code
-  // let test2 = 123;
-  // test2 = test2.toString();
-  // function vanity(number) {
-  //   let vn = '';
-  //   for (let i = 0; i < number.length; i++) {
-  //     let letter = Math.floor(Math.random() * 1);
-  //     vn += letter;
-  //   }
-  //   return vn;
-  // }
-  // const test3 = vanity(test2);
-  // console.log('this test works2');
-  // return test3;
-  //end test
-// };
