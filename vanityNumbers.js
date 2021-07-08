@@ -16,7 +16,7 @@ exports.handler = async (event, context, callback) => {
 
 function vanityNumbers(call) {
   const number = call;
-  let vanityNumbers = [];
+  const vanityNumbers = [];
   let max = 0;
   while (max < 25) {
     let vanityNum = '';
@@ -89,8 +89,8 @@ function vanityNumbers(call) {
     vanityNumbers.push(vanityNum);
     max++;
   }
-  let bestVanity = [];
-  let top5 = [
+  const bestVanity = [];
+  const top5 = [
     {
       vanity: '',
       vowels: 0
@@ -123,7 +123,7 @@ function vanityNumbers(call) {
       }
     }
 
-    let bestVan = {
+    const bestVan = {
       vanity: bestNum,
       vowels: vowels
     };
